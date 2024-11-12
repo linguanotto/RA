@@ -2,18 +2,47 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>AR com AR.js</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página com Lista de Botões</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
-<body style="margin: 0; overflow: hidden;">
-    <!-- Cena AR.js -->
-    <a-scene embedded arjs>
-        <!-- Exemplo de marcador e objeto 3D -->
-        <a-marker preset="hiro">
-            <a-box position="0 0.5 0" material="color: red;"></a-box>
-        </a-marker>
-        <a-entity camera></a-entity>
-    </a-scene>
+<body>
+
+    <ul>
+        <li><button onclick="window.location.href='cubo.html'">Ir para Página 1</button></li>
+        <li><button onclick="window.location.href='imagem.html'">Ir para Página 2</button></li>
+        <li><button onclick="window.location.href='pagina3.html'">Ir para Página 3</button></li>
+        <li><button onclick="window.location.href='pagina4.html'">Ir para Página 4</button></li>
+    </ul>
+
 </body>
 </html>
