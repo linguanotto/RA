@@ -5,31 +5,29 @@
     <meta charset="UTF-8">
     <title>AR com AR.js</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js@1.7.2/aframe/build/aframe-ar.min.js"></script>
 </head>
 
 <body style="margin: 0px; overflow: hidden;">
 
     <a-scene vr-mode-ui="enabled: false;" embedded arjs="debugUIEnable: false;">
         <a-assets>
-            <!-- Vídeo para AR -->
-            <video id="videoAR" src="assets/jackito.mp4" autoplay loop muted playsinline></video>
+            <video id="videoAR" src="https://linguanotto.github.io/RA/assets/jackito.mp4" preload="auto" loop muted playsinline></video>
         </a-assets>
 
-        <a-marker type="pattern" url="assets/saberAcao2025.patt">
+        <!-- Teste se o marcador está sendo carregado corretamente -->
+        <a-marker type="pattern" url="https://linguanotto.github.io/RA/assets/saberAcao2025.patt">
             <a-video position="0 0.5 0" width="1.5" height="1" src="#videoAR"></a-video>
         </a-marker>
-        
 
         <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-        // Força o autoplay caso o navegador bloqueie
         window.onload = function () {
             const video = document.getElementById("videoAR");
-            video.play().catch(() => {
-                console.log("Autoplay bloqueado, tentando novamente...");
+            video.play().catch((error) => {
+                console.log("Autoplay bloqueado, aguardando interação do usuário...");
                 document.body.addEventListener("click", () => video.play(), { once: true });
             });
         };
