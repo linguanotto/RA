@@ -10,14 +10,19 @@
 
 <body style="margin: 0px; overflow: hidden;">
 
+    <!-- Botão para ativar/desativar o som -->
+    <button id="toggleSound" style="position: fixed; top: 10px; left: 10px; z-index: 100; padding: 10px; font-size: 16px;">
+        Ativar Som 🔊
+    </button>
+
     <a-scene vr-mode-ui="enabled: false;" embedded arjs="debugUIEnable: false;">
         <a-assets>
-            <video id="videoAR" src="https://linguanotto.github.io/RA/assets/videoSaberAcao.mp4" preload="auto" loop muted playsinline></video>
+            <video id="videoAR" src="https://linguanotto.github.io/RA/assets/videoSaberAcao.mp4" preload="auto" loop playsinline></video>
         </a-assets>
 
-        <!-- Teste se o marcador está sendo carregado corretamente -->
+        <!-- Carrega o marcador personalizado -->
         <a-marker type="pattern" url="https://linguanotto.github.io/RA/assets/saberAcao2025.patt">
-            <a-video rotation="270 0 0" position="0 0.5 0" width="1.5" height="1" src="#videoAR"></a-video>
+            <a-video rotation="-90 0 0" position="0 0.5 0" width="1.5" height="1" src="#videoAR"></a-video>
         </a-marker>
 
         <a-entity camera></a-entity>
@@ -26,10 +31,26 @@
     <script>
         window.onload = function () {
             const video = document.getElementById("videoAR");
-            video.play().catch((error) => {
+            const button = document.getElementById("toggleSound");
+
+            // Autoplay sem som
+            video.play().catch(() => {
                 console.log("Autoplay bloqueado, aguardando interação do usuário...");
                 document.body.addEventListener("click", () => video.play(), { once: true });
             });
+
+            // Alternar som ao clicar no botão
+            button.addEventListener("click", () => {
+                video.muted = !video.muted;
+                if (!video.muted) {
+                    video.play();
+                    button.textContent = "Desativar Som 🔇";
+                } else {
+                    button.textContent = "Ativar Som 🔊";
+                }
+            });
+
+            console.log("Clique no botão para ativar o áudio.");
         };
     </script>
 
