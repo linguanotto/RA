@@ -12,17 +12,28 @@
 
     <a-scene vr-mode-ui="enabled: false;" embedded arjs="debugUIEnable: false;">
         <a-assets>
-            <!-- Adicione o vídeo aqui -->
+            <!-- Vídeo para AR -->
             <video id="videoAR" src="jackito/video.mp4" autoplay loop muted playsinline></video>
         </a-assets>
 
         <a-marker preset="hiro">
-            <!-- Exibe o vídeo no marcador -->
+            <!-- Renderiza o vídeo na marcação -->
             <a-video rotation="-90 0 0" position="0 0.5 0" width="1.5" height="1" src="#videoAR"></a-video>
         </a-marker>
 
         <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+        // Força o autoplay caso o navegador bloqueie
+        window.onload = function () {
+            const video = document.getElementById("videoAR");
+            video.play().catch(() => {
+                console.log("Autoplay bloqueado, tentando novamente...");
+                document.body.addEventListener("click", () => video.play(), { once: true });
+            });
+        };
+    </script>
 
 </body>
 
