@@ -15,14 +15,14 @@
         Ativar Som 🔊
     </button>
 
-    <a-scene vr-mode-ui="enabled: false;" embedded arjs="debugUIEnable: false;">
+       <a-scene vr-mode-ui="enabled: false;" embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnable: false;">
         <a-assets>
             <video id="videoAR" src="https://linguanotto.github.io/RA/assets/videoSaberAcao.mp4" preload="auto" loop playsinline></video>
         </a-assets>
 
         <!-- Carrega o marcador personalizado -->
         <a-marker id="customMarker" type="pattern" url="https://linguanotto.github.io/RA/assets/saberAcao2025.patt">
-            <a-video id="videoElement" rotation="-35 0 0" position="0 0.5 0" width="1.5" height="1" src="#videoAR"></a-video>
+            <a-video id="videoElement" rotation="-90 0 0" position="0 0 0" width="1.5" height="1" src="#videoAR"></a-video>
         </a-marker>
 
         <a-entity camera></a-entity>
@@ -32,29 +32,27 @@
         window.onload = function () {
             const video = document.getElementById("videoAR");
             const button = document.getElementById("toggleSound");
-            const marker = document.getElementById("customMarker");
-
-            // Inicia o vídeo apenas quando o marcador for detectado
+            const marker = document.querySelector("a-marker");
+    
             marker.addEventListener("markerFound", () => {
                 console.log("Marcador detectado! Iniciando vídeo...");
                 video.play();
-                button.style.display = "block"; // Mostra o botão para controle de som
+                button.style.display = "block"; // Mostra botão de som
             });
-
-            // Pausa o vídeo quando o marcador some
+    
             marker.addEventListener("markerLost", () => {
                 console.log("Marcador perdido! Pausando vídeo...");
                 video.pause();
-                button.style.display = "none"; // Esconde o botão de som
+                button.style.display = "none"; // Esconde botão de som
             });
-
-            // Alternar som ao clicar no botão
+    
             button.addEventListener("click", () => {
                 video.muted = !video.muted;
                 button.textContent = video.muted ? "Ativar Som 🔊" : "Desativar Som 🔇";
             });
         };
     </script>
+    
 
 </body>
 
