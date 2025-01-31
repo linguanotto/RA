@@ -6,13 +6,6 @@
     <title>AR com AR.js</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js@1.7.2/aframe/build/aframe-ar.min.js"></script>
-
-    <style>
-        /* Esconde mensagens de debug */
-        .a-loader-title, .a-enter-vr, .a-loader { 
-            display: none !important; 
-        }
-    </style>
 </head>
 
 <body style="margin: 0px; overflow: hidden;">
@@ -23,8 +16,8 @@
     </button>
 
     <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
-        <a-assets>
-            <video id="videoAR" src="https://linguanotto.github.io/RA/assets/videoSaberAcao.mp4" preload="auto" loop muted playsinline></video>
+         <a-assets>
+            <video id="videoAR" src="https://linguanotto.github.io/RA/assets/videoSaberAcao.mp4" preload="auto" loop playsinline></video>
         </a-assets>
 
         <!-- Carrega o marcador personalizado -->
@@ -40,26 +33,26 @@
             const video = document.getElementById("videoAR");
             const button = document.getElementById("toggleSound");
             const marker = document.querySelector("a-marker");
-
+    
             marker.addEventListener("markerFound", () => {
                 console.log("Marcador detectado! Iniciando vídeo...");
-                video.load(); // Força carregamento para garantir que a imagem apareça
-                video.play().catch(err => console.log("Erro ao iniciar vídeo:", err));
+                video.play();
                 button.style.display = "block"; // Mostra botão de som
             });
-
+    
             marker.addEventListener("markerLost", () => {
                 console.log("Marcador perdido! Pausando vídeo...");
-                video.pause(); // Mantém o vídeo no mesmo ponto onde parou
+                video.pause();
                 button.style.display = "none"; // Esconde botão de som
             });
-
+    
             button.addEventListener("click", () => {
                 video.muted = !video.muted;
                 button.textContent = video.muted ? "Ativar Som 🔊" : "Desativar Som 🔇";
             });
         };
     </script>
+    
 
 </body>
 
